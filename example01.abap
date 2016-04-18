@@ -1,14 +1,16 @@
 *&---------------------------------------------------------------------*
-*& Report  Z_DPS_001
-*&
+*& Report  Z_DPS_001: This is the first example that I'm doing on ABAP.
 *&---------------------------------------------------------------------*
-*&
-*&
+
+*&---------------------------------------------------------------------*
+*&---------------------------------------------------------------------*
+*&Section one: Basics and datatypes.
+*&---------------------------------------------------------------------*
 *&---------------------------------------------------------------------*
 
 *Every sentence ends with a point (.)
 *Diskette icon to save, or CTRL+S
-*Must activate the program CTRL+F3
+*Must activate the program before running CTRL+F3
 
 *Data types:
 *|Type|Default Length | Length            |Default Value|Description  |
@@ -24,22 +26,41 @@
 
 REPORT  Z_DPS_001.
 
-*Declare Var:
-*   Name01  -> Length = 100
-*   B       -> Default Value = 500
 DATA: Name(100)   TYPE I,
       B           TYPE I VALUE 7,
       C           TYPE I VALUE 3,
       Text(10) TYPE C VALUE 'Res: '.
 
-*Print
-WRITE: 'Hola mundo'.
-WRITE: ' | '.
-
-WRITE: 'Name01: ',Name.
-WRITE: ' | '.
+WRITE: 'Hola mundo',' | ','Name01: ',Name,' | '.
 
 Name = B + C.
 
-WRITE: Text,Name.
-WRITE: ' | '.
+WRITE: Text,Name,' | '.
+
+DATA:
+      String(13)  TYPE C VALUE 'Soy un string'
+      ,Float      TYPE F VALUE '2.3E+4'
+      ,Int        TYPE I VALUE 8
+      ,TextNumber TYPE N VALUE '1234'
+      ,PackNumber TYPE P VALUE 7
+      ,Hex        TYPE X VALUE 'A41E0'
+      ,Date       TYPE D VALUE '19870411'
+      ,Time       TYPE T VALUE '120000'.
+
+WRITE:
+      'C: ',String,' '
+      ,'F: ',Float,' '
+      ,'I: ',Int,' '
+      ,'N: ',TextNumber,' '
+      ,'P: ',PackNumber,' '
+      ,'X: ',Hex,' '
+      ,'D: ',Date,' '
+      ,'T: ',Time,' '.
+
+*&---------------------------------------------------------------------*
+*&---------------------------------------------------------------------*
+*&Section two: Internal tables
+*&---------------------------------------------------------------------*
+*&---------------------------------------------------------------------*
+
+*Internal Table: Dynamic structure that is stored on the RAM
