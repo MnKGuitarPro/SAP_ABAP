@@ -26,16 +26,20 @@
 
 REPORT  Z_DPS_001.
 
-DATA: Name(100)   TYPE I,
-      B           TYPE I VALUE 7,
-      C           TYPE I VALUE 3,
-      Text(10) TYPE C VALUE 'Res: '.
+DATA: Name(10)  TYPE I,
+      B         TYPE I VALUE 7,
+      C         TYPE I VALUE 3,
+      Text(10)  TYPE C VALUE 'Res: '.
 
-WRITE: 'Hola mundo',' | ','Name01: ',Name,' | '.
+WRITE:  'Antes de la operación:',
+        /'Name01: ',Name.
 
 Name = B + C.
 
-WRITE: Text,Name,' | '.
+WRITE:  /,/'Después de la operación:'
+        ,/ Text,Name,/.
+
+*&---------------------------------------------------------------------*
 
 DATA:
       String(13)  TYPE C VALUE 'Soy un string'
@@ -48,14 +52,15 @@ DATA:
       ,Time       TYPE T VALUE '120000'.
 
 WRITE:
-      'C: ',String,' '
-      ,'F: ',Float,' '
-      ,'I: ',Int,' '
-      ,'N: ',TextNumber,' '
-      ,'P: ',PackNumber,' '
-      ,'X: ',Hex,' '
-      ,'D: ',Date,' '
-      ,'T: ',Time,' '.
+      /,/ 'Tipos de dato con valor:'
+      ,/'C: ',String
+      ,/'F: ',Float
+      ,/'I: ',Int
+      ,/'N: ',TextNumber
+      ,/'P: ',PackNumber
+      ,/'X: ',Hex
+      ,/'D: ',Date
+      ,/'T: ',Time,/.
 
 *&---------------------------------------------------------------------*
 *&---------------------------------------------------------------------*
@@ -63,4 +68,38 @@ WRITE:
 *&---------------------------------------------------------------------*
 *&---------------------------------------------------------------------*
 
-*Internal Table: Dynamic structure that is stored on the RAM
+*Internal Table: Dynamic structure that is stored on the RAM. Internal
+*Tables has header. All data pass through the header, before being
+*stored in the Table. Without header, we can't recover data.
+
+DATA:
+      BEGIN OF ti_person
+*OCCURS->Header: Indicates the number of records. Zero means no-limit.
+        OCCURS 0
+        ,Name(16)   TYPE C
+        ,LName(16)  TYPE C
+        ,Age(3)     TYPE I
+        ,Date       TYPE D
+        ,END OF ti_person.
+
+ti_person-Name = 'Daniel'.
+ti_person-LName = 'Pavez'.
+ti_person-Age = 29.
+ti_person-Date = SY-DATUM.
+APPEND ti_person.
+
+ti_person-Name = 'Juan'.
+ti_person-LName = 'Perez'.
+ti_person-Age = 18.
+ti_person-Date = SY-DATUM.
+APPEND ti_person.
+
+WRITE: /,/ 'Tabla:'.
+
+LOOP AT ti_person.
+  WRITE:
+          / ti_person-Name
+          ,ti_person-LName
+          ,ti_person-Age
+          ,ti_person-Date.
+ENDLOOP.
