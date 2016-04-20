@@ -89,12 +89,12 @@ ti_person-Date = SY-DATUM.
 APPEND ti_person.
 
 ti_person-Name = 'Juan'.
-ti_person-LName = 'Perez'.
+ti_person-LName = 'Pérez'.
 ti_person-Age = 18.
 ti_person-Date = SY-DATUM.
 APPEND ti_person.
 
-WRITE: /,/ 'Tabla:'.
+WRITE: /,/ 'Tabla 1:'.
 
 LOOP AT ti_person.
   WRITE:
@@ -102,4 +102,38 @@ LOOP AT ti_person.
           ,ti_person-LName
           ,ti_person-Age
           ,ti_person-Date.
+ENDLOOP.
+
+DATA:
+*This is a Structure (don't have a header)
+      BEGIN OF st_person
+        ,Name2(16)  TYPE C
+        ,LName2(16) TYPE C
+        ,Age2(3)    TYPE I
+        ,Date2      TYPE D
+        ,END OF st_person.
+
+DATA:
+      ti_person2 LIKE TABLE OF st_person WITH HEADER LINE.
+
+ti_person2-Name2 = 'Maria'.
+ti_person2-LName2 = 'González'.
+ti_person2-Age2 = 20.
+ti_person2-Date2 = SY-DATUM.
+APPEND ti_person2.
+
+ti_person2-Name2 = 'Camilo'.
+ti_person2-LName2 = 'Muñoz'.
+ti_person2-Age2 = 25.
+ti_person2-Date2 = SY-DATUM.
+APPEND ti_person2.
+
+WRITE: /,/ 'Tabla 2:'.
+
+LOOP AT ti_person2.
+  WRITE:
+          / ti_person2-Name2
+          ,ti_person2-LName2
+          ,ti_person2-Age2
+          ,ti_person2-Date2.
 ENDLOOP.
